@@ -1,8 +1,2 @@
-spring:
-  cloud:
-    gateway:
-      routes:
-        - id: test-websocket
-          uri: ws://127.0.0.1:3000
-          predicates:
-            - Query=green
+server:
+  port: 8081
