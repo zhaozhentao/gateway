@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    gateway:
+      routes[0]:
+        id: test-websocket
+        uri: ws://127.0.0.1:3000
+        predicates[0]: Path=/websocket
+        predicates[1]: Header=Connection,Upgrade
