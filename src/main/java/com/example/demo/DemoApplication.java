@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import cn.hutool.core.collection.CollUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -24,20 +25,22 @@ public class DemoApplication {
             return builder.routes()
                 .route(
                     r -> r.predicate(serverWebExchange -> {
-                        var queryParams = serverWebExchange.getRequest().getQueryParams();
-                        var color = queryParams.get("color");
-                        return color.contains("red");
-                    }).uri("ws://127.0.0.1:3000")
+                            var queryParams = serverWebExchange.getRequest().getQueryParams();
+
+                            return CollUtil.contains(queryParams.get("color"), "red");
+                        })
+                        .uri("ws://127.0.0.1:3000")
                 )
                 .build();
         } else {
             return builder.routes()
                 .route(
                     r -> r.predicate(serverWebExchange -> {
-                        var queryParams = serverWebExchange.getRequest().getQueryParams();
-                        var color = queryParams.get("color");
-                        return color.contains("yellow");
-                    }).uri("ws://127.0.0.1:3001")
+                            var queryParams = serverWebExchange.getRequest().getQueryParams();
+
+                            return CollUtil.contains(queryParams.get("color"), "yellow");
+                        })
+                        .uri("ws://127.0.0.1:3001")
                 )
                 .build();
         }
